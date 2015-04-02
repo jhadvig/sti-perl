@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source scl_source enable perl516
+source scl_source enable perl516 httpd24
 
 set -eu
 
@@ -18,8 +18,11 @@ then
 	perl cpanm $MIRROR --notest -l extlib Module::CoreList
 	perl -Iextlib/lib/perl5 cpanm $MIRROR --notest -L extlib --installdeps .
 else
-	echo "---> No cpanfile found, exiting"
-	exit 1
+	# echo "---> No cpanfile found, exiting"
+	# exit 1
+
+	echo "---> No cpanfile found, nothign to install"
+
 #	TODO: Should we support this? If yes, we need to install rpm-build for /usr/lib/rpm/perl.req
 #	EXCLUDED_PRAGMAS=("perl" "strict" "warnings" "constant" "open" "lib" "vars" "base" "utf8")
 #	DEPS=$(find . -type f -name '*.p[ml]')
@@ -45,3 +48,7 @@ else
 #
 #	done
 fi
+
+rm -rf /opt/rh/httpd24/root/var/www/html/
+ln -s /opt/openshift/src/ /opt/rh/httpd24/root/var/www/html
+

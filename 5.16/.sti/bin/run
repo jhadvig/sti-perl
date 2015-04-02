@@ -1,7 +1,15 @@
-if [ "$PERL5LIB" ]; then
-  export PERL5LIB="$HOME/extlib/lib/perl5:$PER5LIB"
-else
-  export PERL5LIB="$HOME/extlib/lib/perl5"
-fi
+#!/bin/bash
 
-run
+source scl_source enable perl516 httpd24
+
+set -eu
+
+# if [ "$PERL5LIB" ]; then
+#   export PERL5LIB="$HOME/extlib/lib/perl5:$PER5LIB"
+# else
+#   export PERL5LIB="$HOME/extlib/lib/perl5"
+# fi
+
+
+exec httpd -C 'Include /opt/openshift/httpd.conf' -D FOREGROUND
+

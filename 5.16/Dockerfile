@@ -24,6 +24,7 @@ RUN scl enable perl516 -- cpanp 's conf prereqs 1; s save' && \
 	scl enable perl516 -- cpanp 's conf allow_build_interactivity 0; s save' && \
 	scl enable perl516 -- cpanp 'i App::cpanminus'
 
-USER default
+#TODO:
+#USER default
 
 EXPOSE 8080
